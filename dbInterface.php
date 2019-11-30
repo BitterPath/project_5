@@ -27,6 +27,13 @@ class db {
             return null;
         }
     }
+    public function update($sql) {
+        if ($this->conn-$this->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function __destruct()
     {
         $this->conn->close();
@@ -61,5 +68,16 @@ function addUser($username, $password, $displayName, $email) {
         return $newUserId;
     } else {
         return 0;
+    }
+}
+
+function resetUserPassword($userId, $password) {
+    $db = new db();
+    $sql = "UPDATE test SET userPassword = '$password' WHERE userId = '$userId'";
+
+    if (!$db->query($sql)) {
+        return false;
+    } else {
+        return true;
     }
 }
