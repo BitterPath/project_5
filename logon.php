@@ -1,6 +1,7 @@
 <?php
-// TODO: Uncomment require_once "/home/common/mail.php";
+// TODO: Remove first require_once, uncomment other two.
 require_once "dbInterface.php";
+// require_once "/home/common/dbInterface.php;
 // require_once "/home/common/mail.php";
 processPageRequest();
 
@@ -72,11 +73,20 @@ function processPageRequest() {
 }
 
 function resetPassword($userId, $password) {
-
+    if (resetUserPassword($userId, $password)) {
+        $errormsg = "<br /><span style='color:green;'>Password successfully updated! You may now login using your new password.</span>";
+        displayLoginForm($errormsg);
+    } else {
+        $errormsg = "<br /><span style='color:red;'>Password update failed. You may try again or contact the system administrators.</span>";
+        displayLoginForm($errormsg);
+    }
 }
 
 function sendForgotPasswordEmail($username) {
-
+    $userData = getUserData($username);
+    if (is_array($userData)) {
+        var_dump($userData);
+    }
 }
 
 function sendValidationEmail($userId, $displayName, $emailAddress) {

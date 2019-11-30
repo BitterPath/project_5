@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>myMovies Xpress! Forgot Password</title>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
+
+<div class="logo">
+    <p><img src="./images/movie-reel.jpg">myMovies Xpress!</p>
+</div>
+
+<div class="login-form">
+    <form action="./logon.php" method="post">
+        <fieldset>
+            <legend>Forgot Password</legend>
+            <label>
+                Username: <input type="text" name="username" required>
+            </label>
+            <input type="hidden" name="action" value="forgot">
+            <input type="button" onclick="confirmCancel('forgot');" value="Cancel">
+            <input type="reset" value="Clear">
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+</div>
 
 </body>
 </html>
