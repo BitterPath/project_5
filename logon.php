@@ -82,17 +82,24 @@ function resetPassword($userId, $password) {
 }
 
 function sendForgotPasswordEmail($username) {
+
     $userData = getUserData($username);
     if (is_array($userData)) {
         $subject = "myMovies Xpress! Password Reset";
         $message = "Hi ". $userData[3] . ",<br/>" .
             "In order to reset your password please click the following link:<br/>".
-            "http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=$userData[1]";
-        $mailid = "n00205187@unf.edu";
-        $result = sendMail($mailid, $userData[4], $userData[3], $subject, $message);
-        var_dump($userData);
+            "http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=".$userData["ID"];
+        $mailid = "505047167";
+        $result = sendMail($mailid, $userData["Email"], $userData["DisplayName"], $subject, $message);
+        if ($result === 0) {
+            $msg = "An email was sent to you with instructions on how to reset your password.";
+        } else {
+            $msg = "There was an error attempting to send a password reset email. Please try again.";
+        }
+        displayLoginForm($msg);
     } else {
-        echo "Error";
+        $msg = "There is no account associated with this username. Please try again.";
+        displayLoginForm($msg);
     }
 }
 
