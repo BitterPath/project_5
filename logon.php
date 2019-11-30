@@ -1,8 +1,7 @@
 <?php
 // TODO: Remove first require_once, uncomment other two.
-require_once "dbInterface.php";
-// require_once "/home/common/dbInterface.php;
-// require_once "/home/common/mail.php";
+require_once "/home/common/dbInterface.php";
+require_once "/home/common/mail.php";
 processPageRequest();
 
 function authenticateUser($username, $password) {
@@ -85,7 +84,15 @@ function resetPassword($userId, $password) {
 function sendForgotPasswordEmail($username) {
     $userData = getUserData($username);
     if (is_array($userData)) {
+        $subject = "myMovies Xpress! Password Reset";
+        $message = "Hi ". $userData[3] . ",<br/>" .
+            "In order to reset your password please click the following link:<br/>".
+            "http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=$userData[1]";
+        $mailid = "n00205187@unf.edu";
+        $result = sendMail($mailid, $userData[4], $userData[3], $subject, $message);
         var_dump($userData);
+    } else {
+        echo "Error";
     }
 }
 
