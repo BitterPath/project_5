@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myMovies Xpress! Search Results</title>
+    <script type="text/javascript" src="script.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<div class="header">
+    Welcome, <?= $_SESSION["userdisplayname"]; ?>&nbsp;&nbsp;(<a href="javascript:confirmLogout();">logout</a>)
+</div>
+
+<div class="logo">
+    <p><img src="./images/movie-reel.jpg">myMovies Xpress!</p>
+</div>
+
+<p style="color:red;"><?php if(!empty($array)) { echo sizeof($array) . " Movies Found"; } else { echo "NO RESULTS MATCH SEARCH<br/><br/><input type=\"button\" onclick=\"window.location.replace('./search.php');\" value=\"<< Return to Search\">"; } ?></p>
+
+<div class="results">
+    <table>
+        <tr>
+            <th>Movie Image</th>
+            <th>Title (Year)</th>
+            <th>Add Movie</th>
+        </tr>
+        <?php
+            if (!empty($array)) {
+                echo '';
+                foreach($array as $movie) {
+                    $poster = $movie['Poster']; $title = $movie['Title']; $year = $movie['Year']; $id = $movie['imdbID'];
+                    echo "<tr><td><img style=\"height:100px\" src=\"$poster\"></td><td><a href=\"https://www.imdb.com/title/$id/\" target=\"_blank\">$title ($year)</a></td>";
+                    echo "<td style=\"font-size:3em;font-weight:900;color:green;\"><a href=\"javascript:addMovie('$id');\">&#43;</a></td></tr>";
+                }
+                unset($movie);
+            }
+        ?>
+</table>
+</div>
+
+</body>
+</html>

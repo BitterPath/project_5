@@ -1,0 +1,58 @@
+* {
+    box-sizing:border-box;
+}
+table {
+    width:100%;
+    text-align: center;
+    margin-bottom:50px;
+}
+tr:first-of-type {
+    background-color:lightgray;
+    border: none;
+    height:40px;
+}
+a {
+    color:inherit;
+    text-decoration: none;
+}
+.header a {
+    color:inherit;
+    text-decoration: underline;
+}
+.header {
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: slateblue;
+    color: white;
+    padding: 5px 5px 5px 10px;
+}
+.results {
+    background:lavender;
+    width:600px;
+    padding: 0 0 20px 0;
+    margin-bottom: 50px;
+}
+.logo img {
+    width:150px;
+    vertical-align: middle;
+}
+.logo p {
+    display:inline-block;
+    font-size:2em;
+    font-weight:900;
+}
+.login-form input[type=text], input[type=password] {
+    display:flex;
+    width:305px;
+    margin:10px 0 10px 0;
+}
+.login-form input[type=submit], input[type=reset], input[type=button] {
+    width:150px;
+    margin: 0 10px 10px 0;
+}
+.login-form fieldset {
+    background-color:lavender;
+    width:410px;
+    margin-bottom:50px;
+}

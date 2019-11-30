@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myMovies Xpress! Create Account</title>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<div class="logo">
+    <p><img src="./images/movie-reel.jpg">myMovies Xpress!</p>
+</div>
+<p>Fill out the form below to create a myMovies Xpress! account. All fields are required.</p>
+
+<div class="login-form">
+    <form action="./logon.php" onsubmit="return validateCreateAccountForm();" method="post">
+        <fieldset>
+            <legend>Create Account</legend>
+            <label>
+                Display Name: <input type="text" name="displayName" required>
+            </label>
+            <label>
+                Email Address: <input type="text" name="emailAddress" required>
+            </label>
+            <label>
+                Confirm Email: <input type="text" name="emailConfirm" required>
+            </label>
+            <label>
+                Username: <input type="text" name="userName" required>
+            </label><br/>
+            <hr>
+            <label>
+                Password: <input type="password" name="password" required>
+            </label>
+            <label>
+                Confirm Password: <input type="password" name="passwordConfirm" required>
+            </label><hr><br/>
+            <input type="hidden" name="action" value="create">
+            <input type="button" value="Cancel" onclick="confirmCancel(this);">&nbsp;<input type="reset" value="Clear">
+            <input type="submit" value="Create Account">
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>

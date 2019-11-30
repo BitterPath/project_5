@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>myMovies Xpress! Shopping Cart</title>
+    <script type="text/javascript" src="script.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+
+    <div class="header">
+        Welcome, <?= $_SESSION['user']['displayName']; ?>&nbsp;&nbsp;(<a href="javascript:confirmLogout();">logout</a>)
+    </div>
+
+    <div class="logo">
+        <p><img src="./images/movie-reel.jpg">myMovies Xpress!</p>
+    </div>
+
+    <p><?= $_SESSION['cartsize'] ?></p>
+
+    <div class="results">
+        <table>
+            <tr>
+                <th>Movie Image</th>
+                <th>Title (Year)</th>
+                <th>Remove Movie</th>
+            </tr>
+
+            <?php
+                if (!empty($movies)) {
+                    echo '';
+                    foreach($movies as $movieID) {
+                        $return = file_get_contents("http://www.omdbapi.com/?apikey=39959a56&i=".urlencode(trim($movieID))."&type=movie&r=json");
+                        $movie = json_decode($return, true);
+
+                        $id = $movie['imdbID']; $poster = $movie['Poster']; $title = str_replace("'", "", $movie['Title']); $year = $movie['Year'];
+
+                        echo "<tr><td><img style=\"height:100px\" src=\"$poster\"></td><td><a href=\"https://www.imdb.com/title/$id/\" target=\"_blank\">$title ($year)</a></td>";
+                        echo "<td style=\"font-size:3em;font-weight:900;color:red;\"><a href=\"javascript:confirmRemove('$title', '$id');\">&Cross;</a></td></tr>";
+                    }
+                    unset($movie);
+                }
+            ?>
+        </table>
+
+        <input type="button" value="Add Movie" style="margin-left:15px;" onclick="window.location.replace('./search.php')">
+        <input type="button" value="Checkout" onclick="confirmCheckout();">
+    </div>
+
+</body>
+
+</html>

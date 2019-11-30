@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myMovies Xpress! Login</title>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+    <div class="logo">
+        <p><img src="./images/movie-reel.jpg">myMovies Xpress!</p>
+    </div>
+
+    <div class="login-form">
+        <form action="./logon.php" method="post">
+            <?php if(isset($message)) echo $message; ?>
+            <fieldset>
+            <legend>Credentials</legend>
+                <label>
+                    Username:<input type="text" name="userName" required>
+                </label>
+                <label>
+                    Password:<input type="password" name="password" required>
+                </label>
+                <input type="hidden" name="action" value="login">
+                <input type="reset" value="Clear"><input type="submit" value="Login"><br/>
+
+                <a href="./logon.php?form=create">Create Account</a><br/>
+                <a href="./logon.php?form=forgot">Forgot Password</a><br/><br/>
+
+                <!-- TODO: SET EPORTFOLIO LINK BEFORE PUBLISHING -->
+                <a href="ePortfolio link" target="_blank">ePortfolio Link</a>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+</html>

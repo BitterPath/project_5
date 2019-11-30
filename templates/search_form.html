@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myMovies Xpress! Search Form</title>
+    <script type="text/javascript" src="script.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/styles.css">
+
+</head>
+<body>
+
+<div class="header">
+    Welcome, <?= $_SESSION["userdisplayname"]; ?>&nbsp;&nbsp;(<a href="javascript:confirmLogout();">logout</a>)
+</div>
+
+<div class="logo">
+    <p><img src="./images/movie-reel.jpg">myMovies Xpress!</p>
+</div>
+
+<form action="./search.php" method="post">
+    <p>Search for movies below.</p>
+    <label>
+        Keyword:&nbsp;<input type="text" name="keyword">
+    </label><br/><br/>
+    <input type="button" value="Cancel" onclick="window.location.replace('./index.php');">
+    <input type="reset" value="Clear">
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
