@@ -10,9 +10,9 @@ function authenticateUser($username, $password) {
         $errormsg = "<br /><span style='color:red;'>Username and/or password incorrect. Please try again.</span>";
         displayLoginForm($errormsg);
     } else {
-        $_SESSION['user']['Id'] = $userArray[0];
-        $_SESSION['user']['displayName'] = $userArray[3];
-        $_SESSION['user']['emailAddress'] = $userArray[4];
+        $_SESSION['user']['Id'] = $userArray["ID"];
+        $_SESSION['user']['displayName'] = $userArray["DisplayName"];
+        $_SESSION['user']['emailAddress'] = $userArray["Email"];
         header("Location:index.php");
     }
 }
@@ -86,11 +86,13 @@ function sendForgotPasswordEmail($username) {
     $userData = getUserData($username);
     if (is_array($userData)) {
         $subject = "myMovies Xpress! Password Reset";
-        $message = "Hi ". $userData[3] . ",<br/>" .
+        $message = "Hi ". $userData["DisplayName"] . ",<br/>" .
             "In order to reset your password please click the following link:<br/>".
             "http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=".$userData["ID"];
+
         $mailid = "505047167";
         $result = sendMail($mailid, $userData["Email"], $userData["DisplayName"], $subject, $message);
+
         if ($result === 0) {
             $msg = "An email was sent to you with instructions on how to reset your password.";
         } else {
