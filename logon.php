@@ -20,9 +20,7 @@ function authenticateUser($username, $password) {
 function createAccount($username, $password, $displayName, $emailAddress) {
     $newUserId = addUser($username, $password, $displayName, $emailAddress);
     if ($newUserId > 0) {
-        //sendValidationEmail($newUserId, $displayName, $emailAddress);
-        $errormsg = "<br /><span style='color:green;'>User account created, please login.</span>";
-        displayLoginForm($errormsg);
+        sendValidationEmail($newUserId, $displayName, $emailAddress);
     } else {
         $errormsg = "<br /><span style='color:red;'>Username already in use, please choose another.</span>";
         displayLoginForm($errormsg);
@@ -58,7 +56,7 @@ function processPageRequest() {
         else { displayLoginForm(); }
     } else if (isset($_GET['action'])) {
         $action = $_GET['action'];
-        if ($action == 'validate') {$userId = $_GET['userId']; validateAccount($userId); }
+        if ($action == 'validate') {$userId = $_GET['user-id']; validateAccount($userId); }
         else { displayLoginForm(); }
     } else if (isset($_GET['form'])) {
         $form = $_GET['form'];
@@ -88,27 +86,47 @@ function sendForgotPasswordEmail($username) {
         $subject = "myMovies Xpress! Password Reset";
         $message = "Hi ". $userData["DisplayName"] . ",<br/>" .
             "In order to reset your password please click the following link:<br/>".
-            "http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=".$userData["ID"];
+            "<a href='http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=".$userData['ID']."'>http://139.62.210.181/~lr48307/project5/logon.php?form=reset&user-id=".$userData["ID"]."</a>";
 
         $mailid = "505047167";
         $result = sendMail($mailid, $userData["Email"], $userData["DisplayName"], $subject, $message);
 
         if ($result === 0) {
-            $msg = "An email was sent to you with instructions on how to reset your password.";
+            $msg = "<br/><span style='color:green;'>An email was sent to you with instructions on how to reset your password.</span>";
         } else {
-            $msg = "There was an error attempting to send a password reset email. Please try again.";
+            $msg = "<br/><span style='color:red;'>There was an error attempting to send a password reset email. Please try again.</span>";
         }
         displayLoginForm($msg);
     } else {
-        $msg = "There is no account associated with this username. Please try again.";
+        $msg = "<br/><span style='color:red;'>There is no account associated with this username. Please try again.</span>";
         displayLoginForm($msg);
     }
 }
 
 function sendValidationEmail($userId, $displayName, $emailAddress) {
+    $subject = "myMovie Xpress! Account Validation";
+    $message = "<h4>myMovies Xpress!</h4><br/>".
+        $displayName . "," .
+        "You have recently created an account with myMovies Xpress! You must verify your account in order to continue to".
+        " use our service. Please click the link below to verify:<br/> ".
+        "<a href='http://139.62.210.181/~lr48307/project5/logon.php?action=validate&user-id=".$userId."'>http://139.62.210.181/~lr48307/project5/logon.php?action=validate&user-id=".$userId."</a>";
 
+    $mailid = "505047167";
+    $result = sendMail($mailid, $emailAddress, $displayName, $subject, $message);
+
+    if ($result === 0) {
+        $msg = "<br/><span style='color:green;'>An email was sent to you with instructions on how to verify your account.</span>";
+    } else {
+        $msg = "<br/><span style='color:red;'>Account was created but there was an error sending your confirmation email.</span>";
+    }
+    displayLoginForm($msg);
 }
 
 function validateAccount($userId) {
-
+    if(activateAccount($userId)) {
+        $msg = "<br/><span style='color:green;'>You have successfully verified your account and may now login using your username and password.</span>";
+        displayLoginForm($msg);
+    } else {
+        $msg = "<br/><span style='color:red;'>There was an error validating your account. Please use the link you were sent in your email to verify your account.</span>";
+    }
 }
